@@ -1,0 +1,25 @@
+{
+  "name": "@bamapps/bamfs",
+  "version": "0.0.1",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BryanApellanes/bamfs.git"
+  },
+  "author": "Bryan Apellanes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BryanApellanes/bamfs/issues"
+  },
+  "homepage": "https://github.com/BryanApellanes/bamfs#readme",
+  "dependencies": {
+    "jasmine": "^3.6.4"
+  },
+  "devDependencies": {
+    "jasmine-spec-reporter": "^6.0.0"
+  }
+}
