@@ -16,10 +16,10 @@
     <NuspecProperties>publishDir=$([MSBuild]::NormalizeDirectory($(IntermediatePackDir)))</NuspecProperties>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <OutputPath>\opt\bam\build\bamfs\debug\</OutputPath>
+    <OutputPath>\opt\bam\build\debug\bamfs\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <OutputPath>\opt\bam\build\bamfs\release</OutputPath>
+    <OutputPath>\opt\bam\build\release\bamfs\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="bam.net.core" Version="1.0.4" />
