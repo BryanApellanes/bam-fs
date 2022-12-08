@@ -26,4 +26,12 @@
       <MSBuild Projects="$(MSBuildProjectFullPath)" Targets="Publish" Properties="TargetFramework=%(_TargetFramework.Identity)" />
     </ItemGroup>
   </Target>
+  <ItemGroup>
+    <Compile Remove="submodules\**" />
+    <EmbeddedResource Remove="submodules\**" />
+    <None Remove="submodules\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\submodules\bam.core\bam.core\bam.core.csproj" />
+  </ItemGroup>
 </Project>
