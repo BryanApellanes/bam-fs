@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <RootNamespace>Bam.Net.Application</RootNamespace>
     <PackageId>bamfs</PackageId>
@@ -30,8 +30,11 @@
     <Compile Remove="submodules\**" />
     <EmbeddedResource Remove="submodules\**" />
     <None Remove="submodules\**" />
+    <Compile Remove="Chunker.cs" />
+    <Compile Remove="SemanticAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\submodules\bam.core\bam.core\bam.core.csproj" />
+    <ProjectReference Include="..\..\bam.base\bam.base\bam.base.csproj" />
+    <ProjectReference Include="..\..\bam.console\bam.console.tests\bam.sys.console.tests\bam.console.tests.csproj" />
   </ItemGroup>
 </Project>
