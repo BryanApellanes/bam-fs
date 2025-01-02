@@ -1,3 +1,6 @@
 [submodule "submodules/bam.core"]
 	path = submodules/bam.core
 	url = https://github.com/BryanApellanes/bam.core.git
+[submodule "submodules/bam.net.shared"]
+	path = submodules/bam.net.shared
+	url = git@github.com:BryanApellanes/bam.net.shared.git

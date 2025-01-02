@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>bam.files</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\bam.base\bam.base\bam.base.csproj" />
+      <ProjectReference Include="..\..\bam.data.repositories\bam.data.repositories\bam.data.repositories.csproj" />
+      <ProjectReference Include="..\..\bam.data\bam.data\bam.data.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="FileService.cs" />
+    </ItemGroup>
+
+</Project>
