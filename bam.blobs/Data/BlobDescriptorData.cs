@@ -1,6 +1,6 @@
 ﻿using Bam.Data.Repositories;
 
-namespace Bam.Files.Data
+namespace Bam.Blobs.Data
 {
     [Serializable]
     public class BlobDescriptorData: RepoData
@@ -27,11 +27,6 @@ namespace Bam.Files.Data
                 return o.BlobHash.Equals(BlobHash);
             }
             return false;
-        }
-        
-        public override int GetHashCode()
-        {
-            return BlobHash.GetHashCode();
         }
     }
 }

@@ -1,14 +1,14 @@
 ﻿using Bam.Data.Repositories;
 using Bam.Net.CoreServices.Files;
 
-namespace Bam.Files.Data
+namespace Bam.Blobs.Data
 {
     /// <summary>
     /// Represent an arbitrary chunk of data (base 64 encoded)
     /// identified by its hash (Sha256)
     /// </summary>
     [Serializable]
-    public class ChunkData: RepoData, IChunkable
+    public class ChunkData: RepoData
     {
         /// <summary>
         /// The Sha256 hash of the base 64 decoded
@@ -17,8 +17,8 @@ namespace Bam.Files.Data
         public string ChunkHash { get; set; }
 
         /// <summary>
-        /// The length of the base 64 decoded
-        /// value of this chunks Data
+        /// Gets or sets the length of the base 64 decoded
+        /// value of this chunks Data.
         /// </summary>
         public int ChunkLength { get; set; }
 
@@ -38,12 +38,12 @@ namespace Bam.Files.Data
 
         public IChunk ToChunk()
         {
-            return new Chunk { Hash = ChunkHash, Data = Data.FromBase64() };
+            return new Chunk { ChunkHash = ChunkHash, Data = Data.FromBase64() };
         }
 
         public static ChunkData FromChunk(IChunk chunk)
         {
-            return new ChunkData { ChunkHash = chunk.Hash, Data = chunk.Data.ToBase64(), ChunkLength = chunk.Data.Length };
+            return new ChunkData { ChunkHash = chunk.ChunkHash, Data = chunk.Data.ToBase64(), ChunkLength = chunk.Data.Length };
         }
 
         public override int GetHashCode()

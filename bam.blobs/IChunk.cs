@@ -8,7 +8,7 @@ namespace Bam.Net.CoreServices.Files
 {
     public interface IChunk
     {
-        string Hash { get; set; }
+        string ChunkHash { get; set; }
         byte[] Data { get; set; }
     }
 }

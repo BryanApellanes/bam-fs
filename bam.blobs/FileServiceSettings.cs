@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bam.Files
+namespace Bam.Blobs
 {
     public class FileServiceSettings // Used by Copy from within FileService
     {

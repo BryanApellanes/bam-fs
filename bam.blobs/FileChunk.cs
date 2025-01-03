@@ -7,17 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using Bam.Files.Data;
+using Bam.Blobs.Data;
 using Bam.Net;
 using Bam.Net.CoreServices.Files;
 
-namespace Bam.Files
+namespace Bam.Blobs
 {
     /// <summary>
     /// A chunk or segment of a file
     /// </summary>
 	[Serializable]
-	public class FileChunk: IChunkable
+	public class FileChunk: IChunk
 	{
 		public FileChunk()
 		{
@@ -57,12 +57,9 @@ namespace Bam.Files
         /// The base 64 encoded data of this 
         /// chunk
         /// </summary>
-        public string Data
+        public string DataBase64
         {
-            get
-            {
-                return _data;
-            }
+            get => _data;
             set
             {
                 _data = value;
@@ -72,12 +69,9 @@ namespace Bam.Files
         }
 
         byte[] _byteData;
-        protected internal byte[] ByteData
+        public byte[] Data
         {
-            get
-            {
-                return _byteData;
-            }
+            get => _byteData;
             set
             {
                 _byteData = value;
@@ -103,18 +97,13 @@ namespace Bam.Files
             {
                 ChunkHash = ChunkHash,
                 ChunkLength = ChunkLength,
-                Data = Data
+                Data = DataBase64
             };
         }
 
         private void SetChunkHash()
         {
             ChunkHash = _byteData.Sha256();
-        }
-
-        public IChunk ToChunk()
-        {
-            return new Chunk { Hash = ChunkHash, Data = Data.FromBase64() };
         }
     }
 }

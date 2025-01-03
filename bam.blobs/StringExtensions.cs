@@ -1,4 +1,4 @@
-namespace Bam.Files;
+namespace Bam.Blobs;
 
 public static class StringExtensions
 {

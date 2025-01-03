@@ -1,7 +1,7 @@
 ﻿using Bam.Data.Repositories;
 using Bam.Net.CoreServices.Files;
 
-namespace Bam.Files.Data
+namespace Bam.Blobs.Data
 {
     /// <summary>
     /// A descriptor for the relationship between
@@ -32,10 +32,5 @@ namespace Bam.Files.Data
         /// where this chunk begins
         /// </summary>
         public long StreamIndex { get; set; }
-
-        public byte[] GetData(IFileService fileService)
-        {
-            return fileService.GetChunkData(ChunkHash).Data.FromBase64();
-        }
     }
 }

@@ -4,17 +4,17 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Bam.Files;
-using Bam.Files.Data;
+using Bam.Blobs;
+using Bam.Blobs.Data;
+
 //using Bam.Net.Services.Data;
 
-namespace Bam.Net.CoreServices.Files
+namespace Bam.Blobs
 {
     /// <summary>
-    /// Represents a local file and its chunks.  Should
-    /// not be persisted use ChunkedFileDescriptor instead
+    /// Represents a local file and its chunks.
     /// </summary>
-    public class FileBlob : IFileBlob
+    public class FileBlob : Blob
     {
         public FileBlob(FileInfo file, int chunkLength = 256000)
         {
@@ -24,7 +24,7 @@ namespace Bam.Net.CoreServices.Files
             Title = file.Name;
             Directory = file.Directory?.FullName;
             ChunkLength = chunkLength;
-            Hash = file.Sha256();
+            BlobHash = file.Sha256();
             Length = file.Length;
             WholeChunkCount = Math.Floor((decimal)file.Length / (decimal)chunkLength);
             TailLength = Length % ChunkLength;
@@ -39,7 +39,7 @@ namespace Bam.Net.CoreServices.Files
         public string? Directory { get; }
         public int ChunkLength { get; }
         
-        public string Hash { get; }
+        public string BlobHash { get; }
 
         public long Length { get; }
 
@@ -62,11 +62,11 @@ namespace Bam.Net.CoreServices.Files
                 FileChunk chunk = new FileChunk()
                 {
                     ChunkIndex = chunkIndex,
-                    FileHash = Hash,
-                    ByteData = ReadChunk(chunkIndex, out long streamIndex),
+                    FileHash = BlobHash,
+                    Data = ReadChunk(chunkIndex, out long streamIndex),
                     StreamIndex = streamIndex
                 };
-                chunk.ChunkLength = chunk.ByteData.Length;
+                chunk.ChunkLength = chunk.Data.Length;
                 return chunk;
             }
         }
@@ -82,20 +82,6 @@ namespace Bam.Net.CoreServices.Files
             {
                 return ReadWholeFileSystemChunk(chunkIndex, out streamIndex);
             }
-        }
-
-        public FileBlobDescriptorData ToFileBlobData(string description = null)
-        {
-            return new FileBlobDescriptorData
-            {
-                BlobHash = Hash,
-                FileName = Title,
-                Description = description,
-                Directory = Directory,
-                Length = Length,
-                ChunkLength = ChunkLength,
-                ChunkCount = ChunkCount
-            };
         }
 
         protected internal decimal WholeChunkCount { get; set; }

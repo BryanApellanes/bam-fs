@@ -1,4 +1,4 @@
-﻿namespace Bam.Files
+﻿namespace Bam.Blobs
 {
     public interface IFileBlob : IBlob
     {

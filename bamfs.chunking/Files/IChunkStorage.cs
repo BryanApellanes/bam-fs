@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bam.Net.CoreServices.Files
+namespace Bam.Chunking
 {
-    public interface IChunkable
+    public interface IChunkStorage
     {
-        IChunk ToChunk();
+        IChunk GetChunk(string hash);
+        void SetChunk(IChunk chunk);
     }
 }

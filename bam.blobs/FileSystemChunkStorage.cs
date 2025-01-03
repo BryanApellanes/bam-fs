@@ -3,7 +3,7 @@ using Bam.Data.Repositories;
 using Bam.Logging;
 using Bam.Net.CoreServices.Files;
 
-namespace Bam.Files
+namespace Bam.Blobs
 {
     /// <summary>
     /// An IChunkStorage implementation that stores chunks in the file system.
@@ -17,7 +17,7 @@ namespace Bam.Files
             Logger = Log.Default;
         }
 
-        public FileSystemChunkStorage(DataProvider dataProvider, ILogger logger = null)
+        public FileSystemChunkStorage(IDataDirectoryProvider dataProvider, ILogger logger = null)
         {
             DataProvider = dataProvider;
             Logger = logger;
@@ -45,12 +45,12 @@ namespace Bam.Files
 
         protected IChunk SetChunk(IChunk chunk, bool force)
         {
-            if (ChunkExists(chunk.Hash, out IChunk result) && !force)
+            if (ChunkExists(chunk.ChunkHash, out IChunk result) && !force)
             {
                 return result;
             }
 
-            FileInfo file = new FileInfo(GetChunkFilePath(chunk.Hash));
+            FileInfo file = new FileInfo(GetChunkFilePath(chunk.ChunkHash));
             if (!file.Directory.Exists)
             {
                 file.Directory.Create();
@@ -71,7 +71,7 @@ namespace Bam.Files
 
             chunk = new Chunk
             {
-                Hash = hash,
+                ChunkHash = hash,
                 Data = File.ReadAllBytes(filePath)
             };
             return result;

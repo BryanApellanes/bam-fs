@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\bam.base\bam.base\bam.base.csproj" />
+      <ProjectReference Include="..\..\bam.data\bam.data\bam.data.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Files\FileService.cs" />
+      <Compile Remove="ChunkClient.cs" />
+      <Compile Remove="ChunkRequest.cs" />
+      <Compile Remove="ChunkResponse.cs" />
+      <Compile Remove="ChunkServer.cs" />
+      <Compile Remove="ChunkException.cs" />
+      <Compile Remove="Files\FileServiceSettings.cs" />
+    </ItemGroup>
+
+</Project>

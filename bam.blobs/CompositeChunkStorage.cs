@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Bam.Net.CoreServices;
 using Bam.Net.CoreServices.Files;
 
-namespace Bam.Files
+namespace Bam.Blobs
 {
     /// <summary>
     /// ChunkStorage composed of a single Primary IChunkStorage

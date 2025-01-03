@@ -5,17 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Bam.Net.CoreServices.Files;
 
-namespace Bam.Files
+namespace Bam.Blobs
 {
-    internal class Chunk : IChunk, IChunkable
+    public class Chunk : IChunk
     {
-        public string Hash { get; set; }
+        public string ChunkHash { get; set; }
         public byte[] Data { get; set; }
-
-        public IChunk ToChunk()
-        {
-            return this;
-        }
     }
 
 }

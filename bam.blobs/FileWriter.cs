@@ -6,8 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Bam.Files;
-using Bam.Files.Data;
+using Bam.Blobs;
+using Bam.Blobs.Data;
 using Bam.Logging;
 
 namespace Bam.Net.CoreServices.Files
@@ -30,7 +30,7 @@ namespace Bam.Net.CoreServices.Files
 
         public int ChunkLength { get; set; }
 
-        public string Hash { get; set; }
+        public string BlobHash { get; set; }
 
         public long Length { get; set; }
 
@@ -44,7 +44,7 @@ namespace Bam.Net.CoreServices.Files
             BlobDescriptorData descriptor = svc.GetFileDescriptor(fileHash);
             FileWriter writer = new FileWriter(svc)
             {
-                Hash = fileHash,
+                BlobHash = fileHash,
                 ChunkCount = descriptor.ChunkCount,
                 ChunkLength = descriptor.ChunkLength,
                 Length = descriptor.Length,
@@ -57,7 +57,7 @@ namespace Bam.Net.CoreServices.Files
         
         public Task Write(string localPath)
         {
-            return Task.Run(() => FileService.RestoreFile(Hash, localPath));
+            return Task.Run(() => FileService.RestoreFile(BlobHash, localPath));
         }
     }
 }

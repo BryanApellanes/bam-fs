@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using Bam.Files;
-using Bam.Files.Data;
+using Bam.Blobs;
+using Bam.Blobs.Data;
 
 namespace Bam.Net.CoreServices.Files
 {
