@@ -36,6 +36,14 @@
       <Compile Remove="FileServiceSettings.cs" />
       <Compile Remove="IFileService.cs" />
       <Compile Remove="FileWriter.cs" />
+      <Compile Remove="FileSystemChunkStorage.cs" />
+      <Compile Remove="CompositeChunkStorage.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="DaoRepoGenerationConfig.yaml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

@@ -14,36 +14,51 @@ namespace Bam.Blobs
     /// <summary>
     /// Represents a local file and its chunks.
     /// </summary>
-    public class FileBlob : Blob
+    public class FileBlob : Blob, IFileBlobHandle
     {
-        public FileBlob(FileInfo file, int chunkLength = 256000)
+        public FileBlob(string filePath) : this(new FileInfo(filePath))
+        {
+        }
+
+        public FileBlob(FileInfo file, int chunkSize = 256000)
         {
             Args.ThrowIfNull(file, "file");
             Args.ThrowIf(!file.Exists, "File {0} doesn't exist", file.FullName);
             File = file;
-            Title = file.Name;
+            FileName = file.Name;
             Directory = file.Directory?.FullName;
-            ChunkLength = chunkLength;
+            ChunkSize = chunkSize;
             BlobHash = file.Sha256();
             Length = file.Length;
-            WholeChunkCount = Math.Floor((decimal)file.Length / (decimal)chunkLength);
-            TailLength = Length % ChunkLength;
-            PartialTail = TailLength > 0;
+            WholeChunkCount = Math.Floor((decimal)file.Length / (decimal)chunkSize);
+            TailSize = Length % ChunkSize;
+            PartialTail = TailSize > 0;
         }
 
-        public string Title { get; set; }
-        
+        public override IEnumerable<BlobProperty> GetBlobProperties()
+        {
+            yield return new BlobProperty()
+            {
+                BlobHash = BlobHash,
+                Name = "FileName",
+                Value = FileName,
+            };
+            yield return new BlobProperty()
+            {
+                BlobHash = BlobHash,
+                Name = "Directory",
+                Value = Directory
+            };
+        }
+
+        public string? FileName { get; }
+
         /// <summary>
         /// Gets the directory.
         /// </summary>
         public string? Directory { get; }
-        public int ChunkLength { get; }
-        
-        public string BlobHash { get; }
 
-        public long Length { get; }
-
-        public long ChunkCount
+        public override long ChunkCount
         {
             get
             {
@@ -55,23 +70,22 @@ namespace Bam.Blobs
             }
         }
 
-        public FileChunk this[int chunkIndex]
+        public override BlobChunk this[long chunkIndex]
         {
             get
             {
-                FileChunk chunk = new FileChunk()
+                BlobChunk chunk = new BlobChunk()
                 {
                     ChunkIndex = chunkIndex,
-                    FileHash = BlobHash,
+                    BlobHash = BlobHash,
                     Data = ReadChunk(chunkIndex, out long streamIndex),
-                    StreamIndex = streamIndex
+                    BlobIndex = streamIndex
                 };
-                chunk.ChunkLength = chunk.Data.Length;
                 return chunk;
             }
         }
 
-        public byte[] ReadChunk(int chunkIndex, out long streamIndex)
+        public byte[] ReadChunk(long chunkIndex, out long streamIndex)
         {
             Args.ThrowIf<ArgumentOutOfRangeException>(chunkIndex < 0 || chunkIndex > (ChunkCount - 1), "ChunkIndex out of range: {0}", chunkIndex);
             if (PartialTail && chunkIndex == ChunkCount - 1)
@@ -85,19 +99,19 @@ namespace Bam.Blobs
         }
 
         protected internal decimal WholeChunkCount { get; set; }
-        protected internal long TailLength { get; set; }
+        protected internal long TailSize { get; set; }
         protected internal bool PartialTail { get; set; }
-        protected long TailStreamIndex => (long)WholeChunkCount * ChunkLength;
+        protected long TailStreamIndex => (long)WholeChunkCount * ChunkSize;
 
         protected FileInfo File { get; set; }
-        private byte[] ReadWholeFileSystemChunk(int chunkIndex, out long streamIndex)
+        private byte[] ReadWholeFileSystemChunk(long chunkIndex, out long streamIndex)
         {
-            streamIndex = chunkIndex * ChunkLength;
-            byte[] buffer = new byte[ChunkLength];
+            streamIndex = chunkIndex * ChunkSize;
+            byte[] buffer = new byte[ChunkSize];
             using (FileStream fs = new FileStream(File.FullName, FileMode.Open, FileAccess.Read))
             {
                 fs.Seek(streamIndex, SeekOrigin.Begin);
-                fs.Read(buffer, 0, ChunkLength);
+                fs.Read(buffer, 0, ChunkSize);
             }
 
             return buffer;
@@ -106,11 +120,11 @@ namespace Bam.Blobs
         private byte[] ReadTailFileSystemChunk(out long streamIndex)
         {
             streamIndex = TailStreamIndex;
-            byte[] buffer = new byte[TailLength];
+            byte[] buffer = new byte[TailSize];
             using (FileStream fs = new FileStream(File.FullName, FileMode.Open, FileAccess.Read))
             {
                 fs.Seek(TailStreamIndex, SeekOrigin.Begin);
-                fs.Read(buffer, 0, (int)TailLength);
+                fs.Read(buffer, 0, (int)TailSize);
             }
             return buffer;            
         }

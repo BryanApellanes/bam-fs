@@ -2,11 +2,17 @@ using Bam.Blobs;
 
 namespace Bam.Blobs;
 
-public class Blob: IBlob
+public abstract class Blob: IBlobHandle
 {
-    public long ChunkCount { get; }
-    public int ChunkLength { get; }
-    public string BlobHash { get; }
-    public long Length { get; }
-    public string Title { get; set; }
+    public virtual long ChunkCount { get; }
+    public int ChunkSize { get; protected init; }
+    public string BlobHash { get; protected init; }
+    public long Length { get; protected init; }
+
+    public abstract BlobChunk this[long chunkIndex] { get; }
+    
+    public virtual IEnumerable<BlobProperty> GetBlobProperties()
+    {
+        return Array.Empty<BlobProperty>();
+    } 
 }

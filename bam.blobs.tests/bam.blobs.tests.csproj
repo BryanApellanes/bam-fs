@@ -23,7 +23,6 @@
       <ProjectReference Include="..\..\bam.data.repositories\bam.data.repositories\bam.data.repositories.csproj" />
       <ProjectReference Include="..\..\bam.data\bam.data\bam.data.csproj" />
       <ProjectReference Include="..\..\bam.test\bam.test\bam.test.csproj" />
-      <ProjectReference Include="..\bam.blobs.dataaccess\bam.blobs.dataaccess.csproj" />
       <ProjectReference Include="..\bam.blobs\bam.blobs.csproj" />
     </ItemGroup>
 
@@ -40,6 +39,24 @@
       </None>
       <None Update="TestFiles\1Meg">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="TestFiles\50">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="TestFiles\128K">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="TestFiles\256">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="TestFiles\276">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="TestFiles\256000">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="TestFiles\275000">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>
 

@@ -1,8 +1,6 @@
-using Bam.Data.Repositories;
+namespace Bam.Blobs;
 
-namespace Bam.Blobs.Data;
-
-public class BlobPropertyData :RepoData
+public class BlobProperty
 {
     public string BlobHash { get; set; }
     public string Name { get; set; }
