@@ -1,6 +1,7 @@
 using Bam.Blobs;
 using Bam.Blobs.Data;
-using Bam.Blobs.Data.Dao.Repository;
+using Bam.Blobs.Data.Local;
+using Bam.Blobs.Data.Local.Dao.Repository;
 using Bam.Test;
 
 namespace Bam.Application.Unit;
@@ -11,7 +12,7 @@ public class BlobDaoRepositoryShould: UnitTestMenuContainer
     [UnitTest]
     public void SaveDataInstances()
     {
-        BlobDataRepository repo = new BlobDataRepository();
+        LocalBlobDataRepository repo = new LocalBlobDataRepository();
         if (repo == null)
         {
             Args.Throw<ArgumentNullException>("default repo was null");
@@ -31,7 +32,7 @@ public class BlobDaoRepositoryShould: UnitTestMenuContainer
     [UnitTest]
     public void FindBlobHandleByHash()
     {
-        BlobDataRepository repo = new BlobDataRepository();
+        LocalBlobDataRepository repo = new LocalBlobDataRepository();
 
         string testHash = 32.RandomLetters();
         BlobHandleData data = repo.Save(new BlobHandleData()

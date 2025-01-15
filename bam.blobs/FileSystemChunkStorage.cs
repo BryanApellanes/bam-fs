@@ -13,18 +13,18 @@ namespace Bam.Blobs
     {
         public FileSystemChunkStorage()
         {
-            DataProvider = Bam.Data.Repositories.DataProvider.Current;
+            DataProvider = DataSourceProvider.Current;
             Logger = Log.Default;
         }
 
-        public FileSystemChunkStorage(IDataDirectoryProvider dataProvider, ILogger logger = null)
+        public FileSystemChunkStorage(IDataDirectoryProvider dataProvider, ILogger? logger = null)
         {
             DataProvider = dataProvider;
-            Logger = logger;
+            Logger = logger ?? Log.Default;
         }
 
         public IDataDirectoryProvider DataProvider { get; set; }
-        public ILogger Logger { get; set; }
+        public ILogger? Logger { get; set; }
         public void SetChunk(IChunk chunk)
         {
             SetChunk(chunk, true);

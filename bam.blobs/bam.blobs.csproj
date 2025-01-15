@@ -4,7 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>bam.files</RootNamespace>
+        <RootNamespace>bam.blobs</RootNamespace>
         <IntermediatePackDir Condition=" '$(OS)' == 'Windows_NT' ">$(HOMEDRIVE)$(HOMEPATH)/.bam/build/pack/$(Configuration)/$(MSBuildThisFileName)/</IntermediatePackDir>
         <IntermediatePackDir Condition=" '$(OS)' == 'UNIX' ">$(HOME)/.bam/build/pack/$(Configuration)/$(MSBuildThisFileName)/</IntermediatePackDir>
     </PropertyGroup>
@@ -36,14 +36,22 @@
       <Compile Remove="FileServiceSettings.cs" />
       <Compile Remove="IFileService.cs" />
       <Compile Remove="FileWriter.cs" />
-      <Compile Remove="FileSystemChunkStorage.cs" />
-      <Compile Remove="CompositeChunkStorage.cs" />
+      <Compile Remove="OpaqueChunkStorage.cs" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="DaoRepoGenerationConfig.yaml">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
+      <Folder Include=".bam\" />
+      <Folder Include=".bam\sh\Templates\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include=".bam\sh\DaoRepoGenerationConfig.yaml" />
+      <None Include=".bam\sh\delete-dev-sys-dbs.sh" />
+      <None Include=".bam\sh\regen-data-access.sh" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include=".bam\sh\export-dotnet-root.sh" />
     </ItemGroup>
 
 </Project>

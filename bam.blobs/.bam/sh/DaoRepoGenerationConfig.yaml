@@ -1,0 +1,6 @@
+TypeAssembly: ~/.bam/build/Release/bam.blobs/net8.0/bam.blobs.dll
+SchemaName: LocalBlobData
+FromNamespace: Bam.Blobs.Data.Local
+WriteSourceTo: ../../Generated.Dao
+CheckForIds: true
+UseInheritanceSchema: false

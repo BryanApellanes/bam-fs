@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using Bam.Blobs.Data;
+using Bam.Blobs.Data.Local;
 using Bam.Net;
 using Bam.Net.CoreServices.Files;
 
